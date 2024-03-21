@@ -44,22 +44,24 @@ class StableVideo:
     def load_canny_model(
         self,
         base_cfg='ckpt/cldm_v15.yaml',
-        canny_model_cfg='ckpt/control_sd15_canny.pth',
+        canny_model_cfg='ckpt/control_sd15_canny.pth', 
+        device="cpu"
     ):
         self.apply_canny = CannyDetector()
         canny_model = create_model(base_cfg).cpu()
-        canny_model.load_state_dict(load_state_dict(canny_model_cfg, location='cuda'), strict=False)
+        canny_model.load_state_dict(load_state_dict(canny_model_cfg, location=device), strict=False)
         self.canny_ddim_sampler = DDIMSampler(canny_model)
         self.canny_model = canny_model
         
     def load_depth_model(
         self,
         base_cfg='ckpt/cldm_v15.yaml',
-        depth_model_cfg='ckpt/control_sd15_depth.pth',
+        depth_model_cfg='ckpt/control_sd15_depth.pth', 
+        device="cpu"
     ):
         self.apply_midas = MidasDetector()
         depth_model = create_model(base_cfg).cpu()
-        depth_model.load_state_dict(load_state_dict(depth_model_cfg, location='cuda'), strict=False)
+        depth_model.load_state_dict(load_state_dict(depth_model_cfg, location=device), strict=False)
         self.depth_ddim_sampler = DDIMSampler(depth_model)
         self.depth_model = depth_model
 
