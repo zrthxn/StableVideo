@@ -113,11 +113,11 @@ def get_frames_data(config, foreground_mapping, background_mapping, alpha_model)
             current_foreground_uv_values = foreground_mapping(normalized_chunk)
             current_alpha = alpha_model(normalized_chunk)
 
-        background_uv_values[frame, indices[:, 1], indices[:, 0]] = (current_background_uv_values * 0.5 - 0.5).to(torch.float)
-        foreground_uv_values[frame, indices[:, 1], indices[:, 0]] = (current_foreground_uv_values * 0.5 + 0.5).to(torch.float)
+        background_uv_values[frame, indices[:, 1], indices[:, 0]] = current_background_uv_values.to(torch.float) * 0.5 - 0.5
+        foreground_uv_values[frame, indices[:, 1], indices[:, 0]] = current_foreground_uv_values.to(torch.float) * 0.5 + 0.5
         current_alpha = 0.5 * (current_alpha + 1.0)
         current_alpha = 0.99 * current_alpha + 0.001
-        alpha[frame, indices[:, 1], indices[:, 0]] = current_alpha
+        alpha[frame, indices[:, 1], indices[:, 0]] = current_alpha.to(torch.float)
     # config["return_atlas_alpha"] = True
     if config["return_atlas_alpha"]:  # this should take a few minutes
         foreground_atlas_alpha = torch.zeros(
@@ -213,7 +213,7 @@ def get_high_res_atlas(atlas_model, min_v, min_u, max_v, max_u, resolution, devi
             ).to(device)
 
             rgb_output = atlas_model(normalized_chunk)
-            rendered_atlas[chunk[:, 1], chunk[:, 0], :] = rgb_output
+            rendered_atlas[chunk[:, 1], chunk[:, 0], :] = rgb_output.to(torch.float)
         # move colors to RGB color domain (0,1)
     rendered_atlas = 0.5 * (rendered_atlas + 1)
     rendered_atlas = rendered_atlas.permute(2, 0, 1).unsqueeze(0)  # shape (1, 3, resy, resx)
