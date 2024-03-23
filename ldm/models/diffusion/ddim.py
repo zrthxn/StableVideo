@@ -149,7 +149,7 @@ class DDIMSampler(object):
 
         for i, step in enumerate(iterator):
             index = total_steps - i - 1
-            ts = torch.full((b,), step, device=device, dtype=torch.long)
+            ts = torch.full((b,), int(step), device=device, dtype=torch.long)
 
             if mask is not None:
                 assert x0 is not None
