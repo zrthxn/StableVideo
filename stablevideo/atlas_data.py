@@ -7,7 +7,7 @@ from torch.utils.data import Dataset
 from torchvision import transforms
 from torchvision.transforms.functional import crop
 
-from stablevideo.atlas_utils import (
+from .atlas_utils import (
     load_neural_atlases_models,
     get_frames_data,
     get_high_res_atlas,

@@ -8,7 +8,7 @@ from tqdm import tqdm
 import numpy as np
 import cv2
 
-from stablevideo.implicit_neural_networks import IMLP
+from .implicit_neural_networks import IMLP
 
 
 def load_video(folder: str, resize=(432, 768), num_frames=70):
