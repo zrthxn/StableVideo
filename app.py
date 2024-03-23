@@ -348,6 +348,8 @@ class StableVideo:
         return save_name
 
 if __name__ == '__main__':
+    import gradio as gr
+    
     with torch.cuda.amp.autocast():
         stablevideo = StableVideo(base_cfg="ckpt/cldm_v15.yaml",
                                 canny_model_cfg="ckpt/control_sd15_canny.pth",
