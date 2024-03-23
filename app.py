@@ -1,8 +1,6 @@
 import os
-import shutil  
 import cv2
 import einops
-import gradio as gr
 import numpy as np
 import torch
 import torch.optim as optim
