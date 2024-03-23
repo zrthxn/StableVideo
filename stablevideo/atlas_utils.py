@@ -113,8 +113,8 @@ def get_frames_data(config, foreground_mapping, background_mapping, alpha_model)
             current_foreground_uv_values = foreground_mapping(normalized_chunk)
             current_alpha = alpha_model(normalized_chunk)
 
-        background_uv_values[frame, indices[:, 1], indices[:, 0]] = torch.float(current_background_uv_values * 0.5 - 0.5)
-        foreground_uv_values[frame, indices[:, 1], indices[:, 0]] = torch.float(current_foreground_uv_values * 0.5 + 0.5)
+        background_uv_values[frame, indices[:, 1], indices[:, 0]] = (current_background_uv_values * 0.5 - 0.5).to(torch.float)
+        foreground_uv_values[frame, indices[:, 1], indices[:, 0]] = (current_foreground_uv_values * 0.5 + 0.5).to(torch.float)
         current_alpha = 0.5 * (current_alpha + 1.0)
         current_alpha = 0.99 * current_alpha + 0.001
         alpha[frame, indices[:, 1], indices[:, 0]] = current_alpha
