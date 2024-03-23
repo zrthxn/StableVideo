@@ -12,17 +12,16 @@ import torch.nn.functional as F
 from PIL import Image
 import time
 import scipy.interpolate
-from tqdm import tqdm
-
 from pytorch_lightning import seed_everything
-from annotator.util import resize_image, HWC3
-from annotator.canny import CannyDetector
-from annotator.midas import MidasDetector
-from cldm.model import create_model, load_state_dict
-from ldm.models.diffusion.ddim import DDIMSampler
-from stablevideo.atlas_data import AtlasData
-from stablevideo.atlas_utils import get_grid_indices, get_atlas_bounding_box
-from stablevideo.aggnet import AGGNet
+
+from .annotator.util import resize_image, HWC3
+from .annotator.canny import CannyDetector
+from .annotator.midas import MidasDetector
+from .cldm.model import create_model, load_state_dict
+from .ldm.models.diffusion.ddim import DDIMSampler
+from .stablevideo.atlas_data import AtlasData
+from .stablevideo.atlas_utils import get_grid_indices, get_atlas_bounding_box
+from .stablevideo.aggnet import AGGNet
 
 
 class StableVideo:
