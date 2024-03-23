@@ -213,7 +213,7 @@ def get_high_res_atlas(atlas_model, min_v, min_u, max_v, max_u, resolution, devi
             ).to(device)
 
             rgb_output = atlas_model(normalized_chunk)
-            rendered_atlas[chunk[:, 1], chunk[:, 0], :] = rgb_output.to(torch.float)
+            rendered_atlas[chunk[:, 1], chunk[:, 0], :] =  rgb_output.to(torch.float)
         # move colors to RGB color domain (0,1)
     rendered_atlas = 0.5 * (rendered_atlas + 1)
     rendered_atlas = rendered_atlas.permute(2, 0, 1).unsqueeze(0)  # shape (1, 3, resy, resx)
