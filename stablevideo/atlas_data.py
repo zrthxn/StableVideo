@@ -21,7 +21,7 @@ from .atlas_utils import (
 )
 
 class AtlasData():
-    def __init__(self, video_name):
+    def __init__(self, video_name, device = "cpu"):
         with open(f"data/{video_name}/config.json", "r") as f:
             json_dict = json.load(f)
         try:
@@ -29,8 +29,9 @@ class AtlasData():
         except:
             maximum_number_of_frames = json_dict["maximum_number_of_frames"]
 
-        config = {
-            "device": "cuda",
+        self.device = device
+        self.config = config = {
+            "device": device,
             "checkpoint_path": f"data/{video_name}/checkpoint",
             "resx": json_dict["resx"],
             "resy": json_dict["resy"],
@@ -42,8 +43,6 @@ class AtlasData():
             "mask_alpha_threshold": 0.99, # 0.95
             "align_corners": False
         }
-        self.config = config
-        self.device = config["device"]
 
         self.min_size = min(self.config["resx"], self.config["resy"])
         self.max_size = max(self.config["resx"], self.config["resy"])

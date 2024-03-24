@@ -8,7 +8,8 @@ from .api import MiDaSInference
 
 class MidasDetector:
     def __init__(self):
-        self.model = MiDaSInference(model_type="dpt_hybrid").cuda()
+        self.model = MiDaSInference(model_type="dpt_hybrid").cuda() \
+            if torch.cuda.is_available() else MiDaSInference(model_type="dpt_hybrid")
 
     def __call__(self, input_image, a=np.pi * 2.0, bg_th=0.1):
         assert input_image.ndim == 3
@@ -25,7 +26,7 @@ class MidasDetector:
             depth_pt = depth_pt.cpu().numpy()
             depth_image = (depth_pt * 255.0).clip(0, 255).astype(np.uint8)
 
-            depth_np = depth.cpu().numpy()
+            depth_np = depth.cpu().numpy().astype(np.float32)
             x = cv2.Sobel(depth_np, cv2.CV_32F, 1, 0, ksize=3)
             y = cv2.Sobel(depth_np, cv2.CV_32F, 0, 1, ksize=3)
             z = np.ones_like(x) * a

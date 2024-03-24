@@ -62,8 +62,8 @@ class StableVideo:
         self.depth_ddim_sampler = DDIMSampler(depth_model)
         self.depth_model = depth_model
 
-    def load_video(self, video_name):
-        self.data = AtlasData(video_name)
+    def load_video(self, video_name, device = "cpu"):
+        self.data = AtlasData(video_name, device)
         save_name = f"data/{video_name}/{video_name}.mp4"
         if not os.path.exists(save_name):
             imageio.mimwrite(save_name, self.data.original_video.cpu().permute(0, 2, 3, 1))
@@ -108,6 +108,7 @@ class StableVideo:
             seed = random.randint(0, 65535)
         seed_everything(seed)
 
+        print(prompt, a_prompt)
         cond = {"c_concat": [control], "c_crossattn": [model.get_learned_conditioning([prompt + ', ' + a_prompt] * num_samples)]}
         un_cond = {"c_concat": [control], "c_crossattn": [model.get_learned_conditioning([n_prompt] * num_samples)]}
         shape = (4, H // 8, W // 8)
