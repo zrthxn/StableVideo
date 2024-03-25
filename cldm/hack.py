@@ -24,6 +24,7 @@ def hack_everything(clip_skip=0):
     disable_verbosity()
     ldm.modules.encoders.modules.FrozenCLIPEmbedder.forward = _hacked_clip_forward
     ldm.modules.encoders.modules.FrozenCLIPEmbedder.clip_skip = clip_skip
+    ldm.modules.encoders.modules.FrozenCLIPEmbedder.device = "cuda" if torch.cuda.is_available() else "cpu"
     print('Enabled clip hacks.')
     return
 

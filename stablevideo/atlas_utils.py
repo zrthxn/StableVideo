@@ -72,7 +72,7 @@ def load_neural_atlases_models(config):
         skip_layers=[],
     ).to(config["device"])
 
-    checkpoint = torch.load(config["checkpoint_path"])
+    checkpoint = torch.load(config["checkpoint_path"], map_location=config["device"])
     foreground_mapping.load_state_dict(checkpoint["model_F_mapping1_state_dict"])
     background_mapping.load_state_dict(checkpoint["model_F_mapping2_state_dict"])
     foreground_atlas_model.load_state_dict(checkpoint["F_atlas_state_dict"])
