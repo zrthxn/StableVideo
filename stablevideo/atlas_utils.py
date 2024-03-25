@@ -6,7 +6,6 @@ from torchvision import transforms
 from torchvision.transforms.functional import crop
 from tqdm import tqdm
 import numpy as np
-import cv2
 
 from .implicit_neural_networks import IMLP
 

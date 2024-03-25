@@ -20,12 +20,12 @@ from torchvision.utils import make_grid
 from pytorch_lightning.utilities import rank_zero_only
 from omegaconf import ListConfig
 
-from ldm.util import log_txt_as_img, exists, default, ismap, isimage, mean_flat, count_params, instantiate_from_config
-from ldm.modules.ema import LitEma
-from ldm.modules.distributions.distributions import normal_kl, DiagonalGaussianDistribution
-from ldm.models.autoencoder import IdentityFirstStage, AutoencoderKL
-from ldm.modules.diffusionmodules.util import make_beta_schedule, extract_into_tensor, noise_like
-from ldm.models.diffusion.ddim import DDIMSampler
+from .ddim import DDIMSampler
+from ..autoencoder import IdentityFirstStage, AutoencoderKL
+from ...util import log_txt_as_img, exists, default, ismap, isimage, mean_flat, count_params, instantiate_from_config
+from ...modules.ema import LitEma
+from ...modules.distributions.distributions import normal_kl, DiagonalGaussianDistribution
+from ...modules.diffusionmodules.util import make_beta_schedule, extract_into_tensor, noise_like
 
 
 __conditioning_keys__ = {'concat': 'c_concat',

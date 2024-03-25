@@ -2,9 +2,6 @@ import random
 import json
 
 import torch
-import torch.nn.functional as F
-from torch.utils.data import Dataset
-from torchvision import transforms
 from torchvision.transforms.functional import crop
 
 from .atlas_utils import (
