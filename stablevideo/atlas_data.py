@@ -18,8 +18,8 @@ from .atlas_utils import (
 )
 
 class AtlasData():
-    def __init__(self, video_name, device = "cpu"):
-        with open(f"data/{video_name}/config.json", "r") as f:
+    def __init__(self, video_path, video_name, device = "cpu"):
+        with open(f"{video_path}/config.json", "r") as f:
             json_dict = json.load(f)
         try:
             maximum_number_of_frames = json_dict["number_of_frames"]
@@ -29,7 +29,7 @@ class AtlasData():
         self.device = device
         self.config = config = {
             "device": device,
-            "checkpoint_path": f"data/{video_name}/checkpoint",
+            "checkpoint_path": f"{video_path}/checkpoint",
             "resx": json_dict["resx"],
             "resy": json_dict["resy"],
             "maximum_number_of_frames": maximum_number_of_frames,
@@ -43,7 +43,7 @@ class AtlasData():
 
         self.min_size = min(self.config["resx"], self.config["resy"])
         self.max_size = max(self.config["resx"], self.config["resy"])
-        data_folder = f"data/{video_name}/{video_name}"
+        data_folder = f"{video_path}/{video_name}"
         self.original_video = load_video(
             data_folder,
             resize=(self.config["resy"], self.config["resx"]),

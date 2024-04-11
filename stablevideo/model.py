@@ -60,9 +60,9 @@ class StableVideo:
         self.depth_ddim_sampler = DDIMSampler(depth_model)
         self.depth_model = depth_model
 
-    def load_video(self, video_name):
-        self.data = AtlasData(video_name, self.device)
-        save_name = f"data/{video_name}/{video_name}.mp4"
+    def load_video(self, video_path, video_name):
+        self.data = AtlasData(video_path, video_name, self.device)
+        save_name = f"{video_path}/{video_name}.mp4"
         if not os.path.exists(save_name):
             imageio.mimwrite(save_name, self.data.original_video.cpu().permute(0, 2, 3, 1))
             print("original video saved.")
